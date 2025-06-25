@@ -5,15 +5,24 @@
     <title>Ejemplo de Caja de Texto y Botón</title>
 </head>
 <body>
-    <input type="text" id="miCajaTexto" placeholder="ingresa texto">
+    <input type="text" id="miCajaTexto" placeholder="Ingresa texto o número">
     <button onclick="accionCajaTexto()">Haz clic</button>
 
     <script>
         function accionCajaTexto() {
-            // Obtener el valor de la caja de texto
-            var texto = document.getElementById('miCajaTexto').value;
-            // Acción: mostrar el texto en una alerta (puedes modificar esto)
-            alert('El texto introducido es: ' + texto);
+            var valor = document.getElementById('miCajaTexto').value;
+            // Intentar convertir el valor a número
+            var numero = parseFloat(valor.replace(',', '.')); // Soporta punto o coma decimal
+
+            // Verificar si el valor es un número válido
+            if (!isNaN(numero) && valor.trim() !== "") {
+                // Realiza una operación, por ejemplo, suma 10
+                var resultado = numero + 10;
+                alert('Ingresaste un número. El resultado de sumar 10 es: ' + resultado);
+            } else {
+                // Es una cadena de texto
+                alert('Ingresaste una cadena de texto: ' + valor);
+            }
         }
     </script>
 </body>
