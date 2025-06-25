@@ -2,27 +2,44 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Ejemplo de Caja de Texto y Botón</title>
+    <title>Juego: Adivina el Número</title>
 </head>
 <body>
-    <input type="text" id="miCajaTexto" placeholder="Ingresa texto o número">
-    <button onclick="accionCajaTexto()">Haz clic</button>
+    <h2>Estoy pensando en un número del 1 al 100. ¿Cuál es?</h2>
+    <input type="text" id="miCajaTexto" placeholder="Escribe tu número">
+    <button onclick="adivinaNumero()">Intentar</button>
+    <p id="resultado"></p>
+    <button onclick="reiniciarJuego()">Reiniciar Juego</button>
 
     <script>
-        function accionCajaTexto() {
-            var valor = document.getElementById('miCajaTexto').value;
-            // Intentar convertir el valor a número
-            var numero = parseFloat(valor.replace(',', '.')); // Soporta punto o coma decimal
+        let numeroSecreto = Math.floor(Math.random() * 100) + 1;
+        let intentos = 0;
 
-            // Verificar si el valor es un número válido
-            if (!isNaN(numero) && valor.trim() !== "") {
-                // Realiza una operación, por ejemplo, suma 10
-                var resultado = numero + 10;
-                alert('Ingresaste un número. El resultado de sumar 10 es: ' + resultado);
-            } else {
-                // Es una cadena de texto
-                alert('Ingresaste una cadena de texto: ' + valor);
+        function adivinaNumero() {
+            const valor = document.getElementById('miCajaTexto').value;
+            const num = parseInt(valor, 10);
+            const resultado = document.getElementById('resultado');
+            intentos++;
+
+            if (isNaN(num) || num < 1 || num > 100) {
+                resultado.textContent = "Por favor, ingresa un número válido entre 1 y 100.";
+                return;
             }
+
+            if (num < numeroSecreto) {
+                resultado.textContent = "¡Más alto! Intenta con un número mayor.";
+            } else if (num > numeroSecreto) {
+                resultado.textContent = "¡Más bajo! Intenta con un número menor.";
+            } else {
+                resultado.textContent = `¡Correcto! El número era ${numeroSecreto}. Lo lograste en ${intentos} intentos.`;
+            }
+        }
+
+        function reiniciarJuego() {
+            numeroSecreto = Math.floor(Math.random() * 100) + 1;
+            intentos = 0;
+            document.getElementById('resultado').textContent = "";
+            document.getElementById('miCajaTexto').value = "";
         }
     </script>
 </body>
