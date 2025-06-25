@@ -2,10 +2,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título de la página</title>
+    <title>Ejemplo de Caja de Texto y Botón</title>
 </head>
 <body>
-    <!-- Tu contenido va aquí -->
+    <input type="text" id="miCajaTexto" placeholder="Escribe algo aquí">
+    <button onclick="accionCajaTexto()">Haz clic</button>
+
+    <script>
+        function accionCajaTexto() {
+            // Obtener el valor de la caja de texto
+            var texto = document.getElementById('miCajaTexto').value;
+            // Acción: mostrar el texto en una alerta (puedes modificar esto)
+            alert('El texto introducido es: ' + texto);
+        }
+    </script>
 </body>
 </html>
