@@ -27,12 +27,28 @@
             }
 
             if (num < numeroSecreto) {
-                resultado.textContent = "¡Más alto! Intenta con un número mayor.";
+                resultado.innerHTML = "¡Más alto! Intenta con un número mayor.<br>" + pistaMatematica(num, numeroSecreto);
             } else if (num > numeroSecreto) {
-                resultado.textContent = "¡Más bajo! Intenta con un número menor.";
+                resultado.innerHTML = "¡Más bajo! Intenta con un número menor.<br>" + pistaMatematica(num, numeroSecreto);
             } else {
                 resultado.textContent = `¡Correcto! El número era ${numeroSecreto}. Lo lograste en ${intentos} intentos.`;
             }
+        }
+
+        function pistaMatematica(intento, secreto) {
+            // Selección aleatoria de una pista matemática
+            const diferencia = secreto - intento;
+            const pistas = [
+                `Si sumas ${Math.abs(diferencia)} a tu intento obtienes el número secreto.`,
+                `Si multiplicas tu intento por ${(secreto / intento).toFixed(2)}, obtienes el número secreto.`,
+                `La diferencia entre el número secreto y tu intento es ${Math.abs(diferencia)}.`,
+                `El doble de tu intento ${diferencia > 0 ? "más" : "menos"} ${Math.abs(secreto - 2*intento)} es el número secreto.`,
+                `La mitad de tu intento ${diferencia > 0 ? "más" : "menos"} ${Math.abs(secreto - intento/2).toFixed(2)} es el número secreto.`,
+                `La raíz cuadrada del número secreto al cuadrado menos tu intento al cuadrado es ${Math.sqrt(secreto**2 - intento**2).toFixed(2)}.`,
+                `El número secreto dividido por tu intento es ${(secreto / intento).toFixed(2)}.`
+            ];
+            // Elegir una pista aleatoria
+            return "<strong>Pista matemática:</strong> " + pistas[Math.floor(Math.random() * pistas.length)];
         }
 
         function reiniciarJuego() {
